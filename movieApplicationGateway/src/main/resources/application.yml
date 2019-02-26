@@ -1,0 +1,25 @@
+zuul:
+  retryable: false  #Set this property to false to disable all retry logic in Zuul
+  routes:
+    services-order-rs:
+      path: /authentication-service/**
+      serviceId: SERVICES-ORDER-RS
+      add-proxy-headers: true
+ribbon:
+  OkToRetryOnAllOperations: true
+  eureka:
+  client:
+    serviceUrl:
+      defaultzone: http://localhost:8761/eureka/
+      registerWithEureka: true
+      fetchRegistry: true
+  instance:
+    hostname: localhost
+    leaseRenewalIntervalInSeconds: 10
+    hystrix:
+      command:
+        default:
+          execution:
+            isolation:
+              thread:
+                timeoutInMilliseconds: 60000
